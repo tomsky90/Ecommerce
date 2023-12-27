@@ -3,7 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import "./Navbar.scss";
+import "./navbar.scss";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
