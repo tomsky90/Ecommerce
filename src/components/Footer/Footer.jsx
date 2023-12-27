@@ -13,7 +13,7 @@ const Footer = () => {
           <span className="footer__span">New Arrivals</span>
         </div>
         <div className="footer__item">
-          <h1>Links</h1>
+          <h1 className="footer__h1">Links</h1>
           <span className="footer__span">FAQ</span>
           <span className="footer__span">Pages</span>
           <span className="footer__span">Stores</span>
@@ -22,7 +22,7 @@ const Footer = () => {
         </div>
         <div className="footer__item">
           <h1 className="footer__h1">About</h1>
-          <p>
+          <p className="footer__p">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
             nostrum cumque neque quisquam culpa quod in sint deserunt temporibus
             libero. Eum ducimus doloribus ullam iure aspernatur quibusdam iusto,
@@ -31,7 +31,7 @@ const Footer = () => {
         </div>
         <div className="footer__item">
           <h1 className="footer__h1">Contact</h1>
-          <p>
+          <p className="footer__p">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae vero
             tempore quas nihil quisquam recusandae expedita possimus, reiciendis
             repudiandae consectetur quod similique, hic placeat. Eveniet
