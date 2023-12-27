@@ -1,9 +1,9 @@
-import "./App.css";
+import "./App.scss";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import NavBar from "./components/NavBar/NavBar";
-import Footer from "./components/NavBar/Footer/Footer";
+import Footer from "./components/Footer/Footer";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 
 const Layout = () => {
