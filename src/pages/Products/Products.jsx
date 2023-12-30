@@ -42,7 +42,7 @@ const Products = () => {
               max={1000}
               onChange={(e) => setMaxPrice(e.target.value)}
             />
-            <span>1000</span>
+            <span>{maxPrice}</span>
           </div>
         </div>
         <div className="products-page__filter-item">
