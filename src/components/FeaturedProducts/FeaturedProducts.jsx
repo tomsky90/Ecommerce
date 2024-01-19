@@ -1,43 +1,31 @@
 /* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import Card from "../Card/Card";
 import "./featuredProducts.scss";
-
+import axios from "axios";
 const FeaturedProducts = ({ type }) => {
-  const data = [
-    {
-      id: 1,
-      img: "https://images.pexels.com/photos/794062/pexels-photo-794062.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      img2: "https://images.pexels.com/photos/794063/pexels-photo-794063.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      title: "pink long sleeved shirt ",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 2,
-      img: "https://images.pexels.com/photos/1759622/pexels-photo-1759622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      title: "Black & white mini skirt",
-      isNew: true,
-      oldPrice: 25,
-      price: 20,
-    },
-    {
-      id: 3,
-      img: "https://images.pexels.com/photos/2065195/pexels-photo-2065195.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      title: "Pink long sleeved shirt ",
-      isNew: false,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 4,
-      img: "https://images.pexels.com/photos/837140/pexels-photo-837140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      title: "Black Shirt ",
-      isNew: false,
-      oldPrice: 40,
-      price: 32,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          import.meta.env.VITE_REACT_APP_API_URL + "/products",
+          {
+            headers: {
+              Authorization:
+                "bearer" + import.meta.env.VITE_REACT_APP_API_TOKEN,
+            },
+          }
+        );
+        setProducts(res.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="featured-products">
       <div className="featured-products__top">
@@ -50,7 +38,7 @@ const FeaturedProducts = ({ type }) => {
         </p>
       </div>
       <div className="featured-products__bottom">
-        {data.map((item) => (
+        {products.map((item) => (
           <Card item={item} key={item.id} />
         ))}
       </div>
