@@ -2,35 +2,46 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import List from "../../components/List/List";
 import "./products.scss";
+import useFetch from "../../hooks/useFetch";
 
 const Products = () => {
   const catId = parseInt(useParams().id);
   const [maxPrice, setMaxPrice] = useState(1000);
-  const [sort, setSort] = useState(null);
+  const [selectedSubCategories, setSelectedSubCategories] = useState([]);
+  const [sort, setSort] = useState("");
 
+  const { data, loading, error } = useFetch(
+    `/sub-categories?[filters][categories][id][$eq]=${catId}`
+  );
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const isChecked = e.target.checked;
+
+    setSelectedSubCategories(
+      isChecked
+        ? [...selectedSubCategories, value]
+        : selectedSubCategories.filter((item) => item !== value)
+    );
+  };
   return (
     <div className="products-page">
       <div className="products-page__left">
         <div className="products-page__filter-item">
           <h2>Product Categories</h2>
-          <div className="products-page__input-wrapper">
-            <input type="checkbox" id="1" value={1} />
-            <label className="products-page__label" htmlFor="1">
-              Shoes
-            </label>
-          </div>
-          <div className="products-page__input-wrapper">
-            <input type="checkbox" id="2" value={2} />
-            <label className="products-page__label" htmlFor="2">
-              Skirts
-            </label>
-          </div>
-          <div className="product-page__input-wrapper">
-            <input type="checkbox" id="3" value={3} />
-            <label className="products-page__label" htmlFor="3">
-              Coats
-            </label>
-          </div>
+          {data?.map((item) => (
+            <div key={item.id} className="products-page__input-wrapper">
+              <input
+                type="checkbox"
+                id={item.id}
+                value={item.id}
+                onChange={handleChange}
+              />
+              <label className="products-page__label" htmlFor={item.id}>
+                {item.attributes.title}
+              </label>
+            </div>
+          ))}
         </div>
         <div className="products-page__filter-item">
           <h2 className="products-page__h2">Filter by price</h2>
@@ -42,7 +53,7 @@ const Products = () => {
               max={1000}
               onChange={(e) => setMaxPrice(e.target.value)}
             />
-            <span>1000</span>
+            <span>{maxPrice}</span>
           </div>
         </div>
         <div className="products-page__filter-item">
@@ -79,7 +90,12 @@ const Products = () => {
           alt="bnner image"
           className="products-page__banner-img"
         />
-        <List catId={catId} maxPrice={maxPrice} sort={sort} />
+        <List
+          catId={catId}
+          maxPrice={maxPrice}
+          sort={sort}
+          selectedSubCategories={selectedSubCategories}
+        />
       </div>
     </div>
   );
