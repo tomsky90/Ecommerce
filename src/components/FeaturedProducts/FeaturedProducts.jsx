@@ -1,30 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
 import Card from "../Card/Card";
 import "./featuredProducts.scss";
-import axios from "axios";
+import useFetch from "../../hooks/useFetch";
 const FeaturedProducts = ({ type }) => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          import.meta.env.VITE_REACT_APP_API_URL + "/products",
-          {
-            headers: {
-              Authorization:
-                "bearer" + import.meta.env.VITE_REACT_APP_API_TOKEN,
-            },
-          }
-        );
-        setProducts(res.data.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data, loading, error } = useFetch(
+    `/products?populate=*&[filters][type][$eq]=${type}`
+  );
 
   return (
     <div className="featured-products">
@@ -38,9 +19,11 @@ const FeaturedProducts = ({ type }) => {
         </p>
       </div>
       <div className="featured-products__bottom">
-        {products.map((item) => (
-          <Card item={item} key={item.id} />
-        ))}
+        {error
+          ? "Something went wrong"
+          : loading
+          ? "loading"
+          : data?.map((item) => <Card item={item} key={item.id} />)}
       </div>
     </div>
   );
