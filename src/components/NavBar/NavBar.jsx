@@ -3,12 +3,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import "./navbar.scss";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Cart from "../Cart/Cart";
+import "./navbar.scss";
 
 const NavBar = () => {
+  const products = useSelector((state) => state.cart.products);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
@@ -72,7 +74,9 @@ const NavBar = () => {
               }}
             >
               <ShoppingCartIcon />
-              <span className="nav-bar__cart-counter-icon">0</span>
+              <span className="nav-bar__cart-counter-icon">
+                {products.length}
+              </span>
             </div>
           </div>
         </div>

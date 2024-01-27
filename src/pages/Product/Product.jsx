@@ -91,7 +91,7 @@ const Product = () => {
                     img:
                       import.meta.env.VITE_REACT_APP_UPLOAD_URL +
                       data.attributes.img.data.attributes.url,
-                    qunatity,
+                    qunatity: qunatity,
                   })
                 )
               }
